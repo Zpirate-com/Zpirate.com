@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purple Playground</title>
+<style>
+  :root {
+    --deep: #1a0b2e;
+    --mid: #3b1470;
+    --bright: #8b5cf6;
+    --glow: #c084fc;
+    --pink: #e879f9;
+    --text: #f3e8ff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: var(--text);
+    overflow-x: hidden;
+    background: linear-gradient(-45deg, #1a0b2e, #3b1470, #5b21b6, #2e1065, #4c1d95);
+    background-size: 400% 400%;
+    animation: gradientShift 14s ease infinite;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  @keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* floating orbs */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: 0.5;
+    pointer-events: none;
+    background: radial-gradient(circle at 30% 30%, var(--pink), var(--bright) 60%, transparent 80%);
+    animation: float 12s ease-in-out infinite;
+  }
+
+  .orb.o1 { width: 180px; height: 180px; top: 8%; left: 6%; animation-duration: 16s; }
+  .orb.o2 { width: 120px; height: 120px; top: 60%; left: 80%; animation-duration: 11s; animation-delay: -3s; }
+  .orb.o3 { width: 90px; height: 90px; top: 75%; left: 15%; animation-duration: 9s; animation-delay: -6s; }
+  .orb.o4 { width: 140px; height: 140px; top: 20%; left: 78%; animation-duration: 13s; animation-delay: -2s; }
+  .orb.o5 { width: 60px; height: 60px; top: 40%; left: 45%; animation-duration: 8s; animation-delay: -4s; }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33%      { transform: translate(30px, -40px) scale(1.1); }
+    66%      { transform: translate(-25px, 25px) scale(0.9); }
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 24px 100px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  h1 {
+    font-size: 56px;
+    font-weight: 800;
+    background: linear-gradient(90deg, var(--glow), var(--pink), var(--glow));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 4s linear infinite;
+    letter-spacing: 1px;
+    text-shadow: 0 0 40px rgba(192, 132, 252, 0.4);
+  }
+
+  @keyframes shine {
+    to { background-position: 200% center; }
+  }
+
+  .tagline {
+    margin-top: 14px;
+    color: #d8c7fa;
+    font-size: 16px;
+  }
+
+  section {
+    margin-bottom: 56px;
+  }
+
+  h2 {
+    font-size: 22px;
+    color: var(--glow);
+    margin-bottom: 18px;
+    text-shadow: 0 0 12px rgba(192, 132, 252, 0.6);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
+    padding: 26px;
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(192, 132, 252, 0.4);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 18px;
+  }
+
+  .tile {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+
+  .tile:hover {
+    transform: translateY(-6px) scale(1.03);
+    border-color: var(--glow);
+    box-shadow: 0 10px 30px rgba(232, 121, 249, 0.35);
+  }
+
+  .tile .num {
+    display: inline-block;
+    font-size: 12px;
+    color: var(--pink);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .tile h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .tile p {
+    font-size: 13px;
+    color: #cbb8f0;
+  }
+
+  .cta {
+    text-align: center;
+  }
+
+  .cta button {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(90deg, var(--bright), var(--pink));
+    border: none;
+    padding: 14px 32px;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(192, 132, 252, 0.5);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .cta button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 32px rgba(232, 121, 249, 0.7);
+  }
+
+  #result {
+    margin-top: 16px;
+    font-size: 14px;
+    color: #e9d8fd;
+    min-height: 20px;
+  }
+
+  footer {
+    text-align: center;
+    color: #a78bda;
+    font-size: 12px;
+    margin-top: 60px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+  <div class="orb o4"></div>
+  <div class="orb o5"></div>
+
+  <div class="wrap">
+
+    <header>
+      <h1>Purple Playground</h1>
+      <p class="tagline">an animated, glowing little corner of the web — edit this text to make it yours</p>
+    </header>
+
+    <section>
+      <h2>about</h2>
+      <div class="glass-card">
+        <p>Write a bit about yourself here. This card has a frosted-glass look that floats over the shifting purple background — replace this text with something true about you.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>things i like</h2>
+      <div class="grid">
+        <div class="tile"><span class="num">01</span><h3>interest one</h3><p>a short line about it</p></div>
+        <div class="tile"><span class="num">02</span><h3>interest two</h3><p>a short line about it</p></div>
+        <div class="tile"><span class="num">03</span><h3>interest three</h3><p>a short line about it</p></div>
+        <div class="tile"><span class="num">04</span><h3>interest four</h3><p>a short line about it</p></div>
+        <div class="tile"><span class="num">05</span><h3>interest five</h3><p>a short line about it</p></div>
+        <div class="tile"><span class="num">06</span><h3>interest six</h3><p>a short line about it</p></div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <h2>say hi</h2>
+      <button id="glow-btn">click for a spark ✨</button>
+      <div id="result"></div>
+    </section>
+
+    <footer>made with gradients, glass, and a little glow</footer>
+
+  </div>
+
+<script>
+  const btn = document.getElementById('glow-btn');
+  const result = document.getElementById('result');
+  const lines = [
+    'sparkle deployed ✨',
+    'the void appreciates you',
+    'purple intensifies',
+    'ok that was satisfying',
+    'you found the easter egg (there isn\'t one)'
+  ];
+  let i = 0;
+  btn.addEventListener('click', () => {
+    result.textContent = lines[i % lines.length];
+    i++;
+  });
+</script>
+
+</body>
+</html>
